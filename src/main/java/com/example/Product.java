@@ -14,13 +14,15 @@ public class Product {
         this.stock = 0;
     }
 
+    // constructor
     public Product(String id, String name, double price, int stock) {
-        this.id = id;
-        this.name = name;
-        setPrice(price);   
-        setStock(stock);   
+        setId(id);
+        setName(name);
+        setPrice(price);
+        setStock(stock);
     }
 
+    // Getters
     public String getId() {
         return id;
     }
@@ -37,19 +39,28 @@ public class Product {
         return stock;
     }
 
+    // validation
     public void setId(String id) {
-        this.id = id;
+        if (id != null && !id.isEmpty()) {
+            this.id = id;
+        } else {
+            System.out.println("Error: Invalid ID.");
+        }
     }
 
     public void setName(String name) {
-        this.name = name;
+        if (name != null && !name.isEmpty()) {
+            this.name = name;
+        } else {
+            System.out.println("Error: Invalid name.");
+        }
     }
 
     public void setPrice(double price) {
         if (price >= 0) {
             this.price = price;
         } else {
-            System.out.println("Price cannot be negative.");
+            System.out.println("Error: Price cannot be negative.");
         }
     }
 
@@ -57,14 +68,22 @@ public class Product {
         if (stock >= 0) {
             this.stock = stock;
         } else {
-            System.out.println("Stock cannot be negative.");
+            System.out.println("Error: Stock cannot be negative.");
         }
     }
-    
+
+    public void applyDiscount(double percentage) {
+        if (percentage > 0 && percentage <= 100) {
+            price -= price * (percentage / 100);
+        } else {
+            System.out.println("Error: Invalid discount percentage.");
+        }
+    }
+
     public String toString() {
-        return "Product [ID: " + id + 
-               ", Name: " + name + 
-               ", Price: " + price + 
-               ", Stock: " + stock + "]";
+        return String.format(
+                "Product [ID: %s, Name: %s, Price: %.2f, Stock: %d]",
+                id, name, price, stock
+        );
     }
 }
